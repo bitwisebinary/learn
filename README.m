@@ -228,6 +228,81 @@ sudo docker ps
 
 
 
+7. (alternative)
+# 1. Create project folder and navigate into it
+mkdir registration-form
+cd registration-form
+
+# 2. Start and enable Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+# 3. Pull NGINX image and verify
+sudo docker pull nginx
+sudo docker images
+
+# 4. Create HTML file
+cat <<EOF > register.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form action="#" method="post">
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>
+EOF
+
+# 5. Create Dockerfile
+cat <<EOF > Dockerfile
+FROM nginx:latest
+COPY register.html /usr/share/nginx/html/index.html
+EOF
+
+# 6. (Optional) Create .dockerignore file
+cat <<EOF > .dockerignore
+.git
+*.md
+Dockerfile
+EOF
+
+# 7. Build Docker image
+sudo docker build -t registrationform .
+
+# 8. Run Docker container
+sudo docker run -d -p 8080:80 --name registration-container registrationform
+
+# 9. Check running containers
+sudo docker ps
+
+# 10. (Optional) View logs
+sudo docker logs registration-container
+
+# 11. Open in browser
+echo "Open your browser and visit: http://localhost:8080"
+
+# 12. (Optional) Stop and remove container when done
+# sudo docker stop registration-container
+# sudo docker rm registration-container
+
+
+
 
 
 
