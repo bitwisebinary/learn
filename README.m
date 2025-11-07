@@ -85,3 +85,148 @@ sudo systemctl start jenkins
 
 # 7. Access Jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+
+
+5)--- not yet confirmed
+
+| Step | Command | Explanation |
+|------|----------|-------------|
+| *2. Initialize Git repository* | git init | Initializes a new local Git repository. |
+| *3. Add files to staging* | git add . | Adds all files for commit. |
+| *4. Commit changes* | git commit -m "Initial commit - Hello Jenkins" | Saves the staged files with a commit message. |
+
+---
+
+## ✅ FULL CLEANED + CORRECT COMMAND SEQUENCE
+
+```bash
+# --- Setup Java Project ---
+mkdir jenkins-demo
+cd jenkins-demo
+
+# Create Hello.java
+nano Hello.java
+# Add this inside:
+ public class Hello {
+    public static void main(String[] args) {
+         System.out.println("Hello Jenkins");
+    }
+ }
+
+# --- Initialize Git ---
+git init
+git add .
+git commit -m "Initial commit - Hello Jenkins"
+
+# --- Connect to GitHub ---
+git remote add origin <repository_URL>
+git branch -M main
+git push -u origin main
+
+# --- Configure Jenkins ---
+# 1. Open Jenkins Dashboard
+# 2. Click "New Item" → Choose "Freestyle project"
+# 3. Under "Source Code Management", select Git
+# 4. Add repository URL and credentials
+
+# --- Define Build Steps ---
+echo "Building Java Project..."
+javac Hello.java
+echo "Running Project..."
+java Hello
+
+# --- Run Jenkins Job ---
+# Click "Build Now"
+# Jenkins console output:
+# Building Java Project...
+# Running Project...
+# Hello Jenkins
+# Finished: SUCCESS
+
+
+6. # --- Install and setup Docker ---
+sudo apt install docker.io -y
+docker --version
+
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+sudo docker run hello-world
+
+# --- Manage images ---
+docker pull nginx
+docker images
+
+
+# --- Build custom image ---
+nano Dockerfile
+sudo docker build -t myapp .
+
+# --- Run containers ---
+docker run -d -p 8080:80 myapp
+docker ps
+docker ps -a
+
+# --- Manage containers ---
+docker stop <container_id>
+docker start <container_id>
+docker restart <container_id>
+docker rm <container_id>
+docker logs <container_id>
+
+sudo docker run hello-world
+sudo docker ps -a
+sudo docker info
+sudo docker start <id>
+sudo docker run -d <image name>
+
+
+7.
+
+
+# 1. Create project folder
+mkdir registration-form
+cd registration-form
+
+# 2. Start Docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+# 3. Pull NGINX image
+sudo docker pull nginx
+sudo docker images
+
+# 4. Create HTML file
+nano register.html
+# (Add your HTML form and save)
+
+# 5. Create Dockerfile
+nano Dockerfile
+# Add:
+FROM nginx:latest
+COPY register.html /usr/share/nginx/html/index.html
+
+# 6. Build Docker image
+sudo docker build -t registrationform .
+
+# 7. Run container
+sudo docker run -d -p 8080:80 registrationform
+
+# 8. Check running container
+sudo docker ps
+
+# 9. Open in browser
+# Visit http://localhost:8080
+
+
+
+
+
+
+
+
+
