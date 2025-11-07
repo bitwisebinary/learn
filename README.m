@@ -14,6 +14,10 @@
 </html>
 
 
+sudo apt install git -y
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
 git init
 git add .
 git commit -m "first commit"
