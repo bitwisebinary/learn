@@ -1,17 +1,21 @@
 1. 
 <!DOCTYPE html>
 <html>
-<body style="margin: 30%;">
-<h2>Registration Form</h2>
-<form>
-  Name: <input type="text" name="name"><br>
-  Email: <input type="email" name="email"><br>
-  Password: <input type="password" name="password"><br>
-  Gender: <input type="radio" name="gender">Male <input type="radio" name="gender">Female<br>
-  <input type="submit" value="Register">
+<body>
+<form onsubmit="return validate()">
+  <h2>Login</h2>
+  <input id="user" type="text" placeholder="Username" required><br>
+  <input id="pass" type="password" placeholder="Password" required minlength="4"><br>
+  <button>Login</button>
 </form>
+<script>
+function validate(){
+  if(!user.value || !pass.value){ alert("All fields required"); return false; }
+}
+</script>
 </body>
 </html>
+
 
 
 sudo apt install git -y
