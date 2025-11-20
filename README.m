@@ -25,6 +25,10 @@ git branch -M main
 git remote add origin https://github.com/bitwisebinary/devops.git
 git push -u origin main
 
+genarate token - setting - developer setting - personal acces toekn - token classic - generate token
+
+git pull origin main
+
 
 2.
 
