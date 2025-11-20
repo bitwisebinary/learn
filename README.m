@@ -1,12 +1,14 @@
 1. 
 <!DOCTYPE html>
 <html>
-<body>
-<form onsubmit="return validate()">
-  <h2>Login</h2>
-  <input id="user" type="text" placeholder="Username" required><br>
-  <input id="pass" type="password" placeholder="Password" required minlength="4"><br>
-  <button>Login</button>
+<body style="display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:sans-serif;">
+<form onsubmit="return validate()" style="text-align:center;font-size:20px;">
+  <h2 style="font-size:28px;">Login</h2>
+  <input id="user" type="text" placeholder="Username" required 
+         style="padding:12px;width:250px;font-size:18px;"><br><br>
+  <input id="pass" type="password" placeholder="Password" required minlength="4"
+         style="padding:12px;width:250px;font-size:18px;"><br><br>
+  <button style="padding:12px 25px;font-size:18px;">Login</button>
 </form>
 <script>
 function validate(){
@@ -15,6 +17,7 @@ function validate(){
 </script>
 </body>
 </html>
+
 
 
 
