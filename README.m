@@ -284,7 +284,19 @@ sudo docker run myapp
 Output:
 Hello from Docker!
 
-
+7.new one
+Sudo apt install docker.io
+Sudo systemctl start docker 
+Sudo systemctl enable docker 
+Sudo docker pull nginx
+Sudo mkdir first 
+Cd
+Nano something.html
+Nano DOCKER FILE 
+FROM nginx: latest
+COPY something.html /usr/share/nginx/html/index.html
+Sudo docker build -t first  .
+Sudo  docker run -d -p 8080:80 first
 
 
 
