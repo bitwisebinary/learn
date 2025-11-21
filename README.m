@@ -1,23 +1,42 @@
-1. 
+
+
 <!DOCTYPE html>
 <html>
-<body style="display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:sans-serif;">
-<form onsubmit="return validate()" style="text-align:center;font-size:20px;">
-  <h2 style="font-size:28px;">Login</h2>
-  <input id="user" type="text" placeholder="Username" required 
-         style="padding:12px;width:250px;font-size:18px;"><br><br>
-  <input id="pass" type="password" placeholder="Password" required minlength="4"
-         style="padding:12px;width:250px;font-size:18px;"><br><br>
-  <button style="padding:12px 25px;font-size:18px;">Login</button>
-</form>
-<script>
-function validate(){
-  if(!user.value || !pass.value){ alert("All fields required"); return false; }
-}
-</script>
+<head>
+    <title>Registration Form</title>
+</head>
+<body>
+
+<center>
+    <h2>Registration Form</h2>
+
+    <form>
+        <label>First Name:</label><br>
+        <input type="text" required><br><br>
+
+        <label>Last Name:</label><br>
+        <input type="text" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" required><br><br>
+
+        <label>Gender:</label><br>
+        <select>
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+</center>
+
 </body>
 </html>
-
 
 
 
