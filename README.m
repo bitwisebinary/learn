@@ -194,9 +194,14 @@ docker logs <container_id>
 
 sudo docker run hello-world
 sudo docker ps -a
+sudo docker images
 sudo docker info
 sudo docker start <id>
 sudo docker run -d <image name>
+sudo docker rm <container id>
+sudo docker ps -a
+sudo docker start <container-id>
+sudo docker stop <container-id>
 
 
 7.
@@ -219,17 +224,17 @@ sudo docker images
 nano register.html
 # (Add your HTML form and save)
 
-# 5. Create Dockerfile
+# 5. Create dockerfile
 nano Dockerfile
 # Add:
 FROM nginx:latest
 COPY register.html /usr/share/nginx/html/index.html
 
 # 6. Build Docker image
-sudo docker build -t registrationform .
+sudo docker build -t registration-form .
 
 # 7. Run container
-sudo docker run -d -p 8080:80 registrationform
+sudo docker run -d -p 8080:80 registration-form
 
 # 8. Check running container
 sudo docker ps
