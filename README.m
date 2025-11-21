@@ -117,6 +117,11 @@ sudo apt install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
+alternate: 
+sudo ufw allow 8080
+sudo ufw status
+sudo ufw enable
+
 # 7. Access Jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
