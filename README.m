@@ -242,7 +242,7 @@ class WidgetsDemo extends StatelessWidget {
 
 
 
-2 a      
+2 a      exploration
 
 import 'package:flutter/material.dart';
 void main() => runApp(MaterialApp(home: Layouts()));
