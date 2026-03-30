@@ -1,771 +1,306 @@
-1. Hello World
+1. BFS
+from collections import deque
 
-// import 'package:flutter/material.dart';
-// void main() {
-//   runApp(MyApp());
-// }
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(title: Text("Hello World App")),
-//         body: Center(
-//           child: Text(
-//             "Hello, Flutter!",
-//             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//           ), ), ), );
-//   }
-// }
+# Take number of nodes
+n = int(input("Enter number of nodes: "))
 
+# Create adjacency list
+graph = {}
 
-2. Count++
+# Input neighbors for each node
+for i in range(n):
+    node = input(f"Enter node {i+1} name: ")
+    neighbors = input(f"Enter neighbors of {node} (space-separated): ").split()
+    graph[node] = neighbors
 
+# BFS function
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
 
+    print("BFS Traversal:")
 
-// import 'package:flutter/material.dart';
+    while queue:
+        node = queue.popleft()
+        
+        if node not in visited:
+            print(node, end=" ")
+            visited.add(node)
 
-// void main() => runApp(MaterialApp(home: CounterApp()));
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
 
-// class CounterApp extends StatefulWidget {
-//   @override
-//   _CounterAppState createState() => _CounterAppState();
-// }
+# Start node input
+start_node = input("\nEnter starting node: ")
 
-// class _CounterAppState extends State<CounterApp> {
-//   int count = 0;
+# Call BFS
+bfs(graph, start_node)
 
-//   @override
-//   Widget build(BuildContext context) => Scaffold(
-//         appBar: AppBar(title: const Text('Hello')),
-//         body: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               const Text('You have pushed the button this many times:'),
-//               Text('$count', style: const TextStyle(fontSize: 30)),
-//             ],
-//           ),
-//         ),
-//         floatingActionButton: FloatingActionButton(
-//           onPressed: () => setState(() => count++),
-//           child: const Icon(Icons.add),
-//         ),
-//       );
-// }
+........................................
 
+2. DFS
 
+# Take number of nodes
+n = int(input("Enter number of nodes: "))
 
-3. Login Form
+# Create adjacency list
+graph = {}
 
+# Input neighbors for each node
+for i in range(n):
+    node = input(f"Enter node {i+1} name: ")
+    neighbors = input(f"Enter neighbors of {node} (space-separated): ").split()
+    graph[node] = neighbors
 
-//   import 'package:flutter/material.dart';
-// void main() => runApp(LoginApp());
-// class LoginApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: LoginPage(),
-//     );
-//   }
-// }
-// class LoginPage extends StatelessWidget {
-//   final TextEditingController username = TextEditingController();
-//   final TextEditingController password = TextEditingController();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Login Form")),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16),
-//         child: Column(
-//           children: [
-//             TextField(controller: username, decoration: InputDecoration(labelText: "Username")),
-//             TextField(controller: password, decoration: InputDecoration(labelText: "Password"), obscureText: true),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: () {
-//                 print("Username: ${username.text}, Password: ${password.text}");
-//               },
-//               child: Text("Login"),
-//             ), ], ), ), );
-//   }
-// }
+# DFS function (recursive)
+def dfs(graph, node, visited):
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+
+        for neighbor in graph[node]:
+            dfs(graph, neighbor, visited)
+
+# Start node input
+start_node = input("\nEnter starting node: ")
+
+# Call DFS
+print("DFS Traversal:")
+dfs(graph, start_node, set())
 
 
+..........................................
 
-4. Two Screens
+3. TIC-TAC-TOE
 
+# Initialize board
+board = [" " for _ in range(9)]
 
+# Print board
+def print_board():
+    print()
+    print(board[0], "|", board[1], "|", board[2])
+    print("--+---+--")
+    print(board[3], "|", board[4], "|", board[5])
+    print("--+---+--")
+    print(board[6], "|", board[7], "|", board[8])
+    print()
 
-// import 'package:flutter/material.dart';
-// void main() => runApp(NavigationApp());
-// class NavigationApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: FirstScreen());
-//   }
-// }
-// class FirstScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("First Screen")),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () {
-//             Navigator.push(
-//                 context, MaterialPageRoute(builder: (context) => SecondScreen()));
-//           },
-//           child: Text("Go to Second Screen"),
-//         ),  ),  );
-//   }
-// }
-// class SecondScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Second Screen")),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () => Navigator.pop(context),
-//           child: Text("Back to First Screen"),
-//         ), ), );
-//   }
-// }
+# Check winner
+def check_winner(player):
+    win_positions = [
+        [0,1,2], [3,4,5], [6,7,8],  # rows
+        [0,3,6], [1,4,7], [2,5,8],  # cols
+        [0,4,8], [2,4,6]            # diagonals
+    ]
+    
+    for pos in win_positions:
+        if board[pos[0]] == board[pos[1]] == board[pos[2]] == player:
+            return True
+    return False
 
+# Game loop
+def play():
+    current_player = "X"
+    
+    for turn in range(9):
+        print_board()
+        move = int(input(f"Player {current_player}, enter position (1-9): ")) - 1
+        
+        if board[move] == " ":
+            board[move] = current_player
+            
+            if check_winner(current_player):
+                print_board()
+                print(f" Player {current_player} wins!")
+                return
+            
+            # Switch player
+            current_player = "O" if current_player == "X" else "X"
+        else:
+            print(" Position already taken! Try again.")
+            continue
+    
+    print_board()
+    print(" It's a draw!")
 
+# Start game
+play()
 
+......................................
 
-5. Caliculator
+4. 8 PUZZLE
 
+from collections import deque
 
+# Goal state
+goal = [1,2,3,4,5,6,7,8,0]
 
-
-// import 'package:flutter/material.dart';
-// void main() => runApp(CalculatorApp());
-// class CalculatorApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: Calculator());
-//   }
-// }
-// class Calculator extends StatefulWidget {
-//   @override
-//   _CalculatorState createState() => _CalculatorState();
-// }
-// class _CalculatorState extends State<Calculator> {
-//   final num1 = TextEditingController();
-//   final num2 = TextEditingController();
-//   double result = 0;
-//   void addNumbers() {
-//     setState(() {
-//       result = double.parse(num1.text) + double.parse(num2.text);
-//     } );
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Simple Calculator")),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16),
-//         child: Column(
-//           children: [
-//             TextField(controller: num1, decoration: InputDecoration(labelText: "Enter first number"), keyboardType: TextInputType.number),
-//             TextField(controller: num2, decoration: InputDecoration(labelText: "Enter second number"), keyboardType: TextInputType.number),
-//             SizedBox(height: 20),
-//             ElevatedButton(onPressed: addNumbers, child: Text("Add")),
-//             Text("Result: $result", style: TextStyle(fontSize: 24)),
-//           ], ), ), );
-//   }
-// }
-
-
-
-
-
-6. Image + Emoji
-
-
-
-// import 'package:flutter/material.dart';
-// void main() => runApp(ImageApp());
-// class ImageApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(title: Text("Image Example")),
-//         body: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Icon(Icons.favorite, color: Colors.red, size: 60),
-//               SizedBox(height: 20),
-//               Image.network('https://flutter.dev/images/flutter-logo-sharing.png', width: 100),
-//             ],   ),  ),  ),  );
-//   }
-// }
-
-
-2nd pdf
-
-1a : 
-
-void main() {
-  var name = 'I love you';
-  print('Hello, $name');
+# Possible moves (up, down, left, right)
+moves = {
+    0: [1,3], 1: [0,2,4], 2: [1,5],
+    3: [0,4,6], 4: [1,3,5,7], 5: [2,4,8],
+    6: [3,7], 7: [4,6,8], 8: [5,7]
 }
 
-
-1b 
-
-
-import 'package:flutter/material.dart';
-void main() => runApp(MaterialApp(home: WidgetsDemo()));
-
-class WidgetsDemo extends StatelessWidget {
-  @override
-  Widget build(_) => Scaffold(
-    appBar: AppBar(title: Text('Widgets')),
-    body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(padding: EdgeInsets.all(12), color: Colors.blue[50],
-          child: Text('Simple Text', style: TextStyle(fontSize: 18))),
-        SizedBox(height: 12),
-        Image.network('https://flutter.dev/assets/images/shared/brand/flutter/logo/flutter-lockup.png', width:120),
-      ],
-    ),
-  );
-}
-
-
-
-2 a      exploration
-
-import 'package:flutter/material.dart';
-void main() => runApp(MaterialApp(home: Layouts()));
-
-class Layouts extends StatelessWidget {
-  @override
-  Widget build(_) => Scaffold(
-    appBar: AppBar(title: Text('Row/Column/Stack')),
-    body: Padding(
-      padding: EdgeInsets.all(12),
-      child: Column(children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Text('R1'), Text('R2'), Text('R3')
-        ]),
-        SizedBox(height:20),
-        Column(children: [Text('C1'), Text('C2')]),
-        SizedBox(height:20),
-        SizedBox(height:120, width: double.infinity,
-          child: Stack(children: [
-            Container(color: Colors.yellow),
-            Positioned(top:10,left:10, child: Text('Top')),
-            Positioned(bottom:10,right:10, child: Text('Bottom')),
-          ]),
-        )
-      ]),
-    ),
-  );
-}
-
-
-
-2 b row,column,stack
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Row Layout'),
-        ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              color: Colors.red,
-              width: 100,
-              height: 100,
-            ),
-            Container(
-              color: Colors.green,
-              width: 100,
-              height: 100,
-            ),
-            Container(
-              color: Colors.blue,
-              width: 100,
-              height: 100,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-3a narrow wide
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Responsive UI Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ResponsiveHomePage(),
-    );
-  }
-}
-
-class ResponsiveHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Responsive UI Demo'),
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth < 600) {
-            return _buildNarrowLayout();
-          } else {
-            return _buildWideLayout();
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildNarrowLayout() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlutterLogo(size: 100),
-          SizedBox(height: 20),
-          Text(
-            'Narrow Layout',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Button'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWideLayout() {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlutterLogo(size: 100),
-          SizedBox(width: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Wide Layout',
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Button'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-3b  media queries
-
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Responsive UI with Media Queries',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ResponsiveHomePage(),
-    );
-  }
-}
-
-class ResponsiveHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Responsive UI with Media Queries'),
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth < 600) {
-            return _buildMobileLayout();
-          } else if (constraints.maxWidth < 1200) {
-            return _buildTabletLayout();
-          } else {
-            return _buildDesktopLayout();
-          }
-        },
-      ),
-    );
-  }
-
-  // ---------------- MOBILE ----------------
-  Widget _buildMobileLayout() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlutterLogo(size: 100),
-          SizedBox(height: 20),
-          Text(
-            'Mobile Layout',
-            style: TextStyle(fontSize: 24),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Button'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ---------------- TABLET ----------------
-  Widget _buildTabletLayout() {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlutterLogo(size: 100),
-          SizedBox(width: 20),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Tablet Layout',
-                style: TextStyle(fontSize: 24),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Button'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ---------------- DESKTOP ----------------
-  Widget _buildDesktopLayout() {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          FlutterLogo(size: 150),
-          SizedBox(width: 40),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Desktop Layout',
-                style: TextStyle(fontSize: 30),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Button'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-4a  screen switch
-
-
-import 'package:flutter/material.dart';
-
-
-// void main() => runApp(NavigationApp());
-// class NavigationApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: FirstScreen());
-//   }
-// }
-// class FirstScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("First Screen")),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () {
-//             Navigator.push(
-//                 context, MaterialPageRoute(builder: (context) => SecondScreen()));
-//           },
-//           child: Text("Go to Second Screen"),
-//         ),  ),  );
-//   }
-// }
-// class SecondScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Second Screen")),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () => Navigator.pop(context),
-//           child: Text("Back to First Screen"),
-//         ), ), );
-//   }
-// }
-
-
-
-
-4b navigation with named routes
-
-
-V
-5a stateless widget
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Cards Example'),
-        ),
-        body: CardList(),
-      ),
-    );
-  }
-}
-
-class CardList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return CardItem(
-          title: 'Title $index',
-          subtitle: 'Subtitle $index',
-        );
-      },
-    );
-  }
-}
-
-class CardItem extends StatelessWidget {
-  final String title;
-  final String subtitle;
-
-  const CardItem({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        leading: CircleAvatar(
-          child: Text(title.substring(0, 1)),
-        ),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        onTap: () {
-          // Handle tap if needed
-        },
-      ),
-    );
-  }
-}
-
-5a statefull widget
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CounterApp(),
-    );
-  }
-}
-
-class CounterApp extends StatefulWidget {
-  @override
-  _CounterAppState createState() => _CounterAppState();
-}
-
-class _CounterAppState extends State<CounterApp> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Counter App'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Counter:',
-              style: TextStyle(fontSize: 24),
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-
-
-5b  setState
-
-
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CounterPage(),
-    );
-  }
-}
-
-class CounterPage extends StatefulWidget {
-  @override
-  _CounterPageState createState() => _CounterPageState();
-}
-
-class _CounterPageState extends State<CounterPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Counter Example (setState)'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Counter Value:',
-              style: TextStyle(fontSize: 22),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-
-
+# BFS function
+def bfs(start):
+    queue = deque([(start, [])])
+    visited = set()
+    
+    while queue:
+        state, path = queue.popleft()
+        
+        if state == goal:
+            return path
+        
+        visited.add(tuple(state))
+        
+        zero = state.index(0)
+        
+        for move in moves[zero]:
+            new_state = state[:]
+            new_state[zero], new_state[move] = new_state[move], new_state[zero]
+            
+            if tuple(new_state) not in visited:
+                queue.append((new_state, path + [new_state]))
+    
+    return None
+
+# Input
+print("Enter initial state (use 0 for blank):")
+start = list(map(int, input().split()))
+
+# Solve
+result = bfs(start)
+
+# Output
+if result:
+    print("\nSteps to reach goal:")
+    for step in result:
+        print(step)
+else:
+    print("No solution found.")
+.......................................
+
+
+  5. TRAVELLIGN SALESMAN
+
+  from itertools import permutations
+
+# Input
+n = int(input("Enter number of cities: "))
+
+print("Enter distance matrix:")
+graph = []
+for i in range(n):
+    row = list(map(int, input().split()))
+    graph.append(row)
+
+cities = list(range(n))
+
+min_path = float('inf')
+best_route = None
+
+# Try all permutations (except starting city 0)
+for perm in permutations(cities[1:]):
+    route = [0] + list(perm) + [0]
+    cost = 0
+    
+    for i in range(len(route)-1):
+        cost += graph[route[i]][route[i+1]]
+    
+    if cost < min_path:
+        min_path = cost
+        best_route = route
+
+# Output
+print("\nMinimum cost:", min_path)
+print("Best route:", best_route)
+
+..............................
+
+6.WATER JUG PROBLEM
+
+from collections import deque
+
+# BFS function
+def water_jug(cap1, cap2, target):
+    visited = set()
+    queue = deque([((0, 0), [])])  # (jug1, jug2), path
+    
+    while queue:
+        (x, y), path = queue.popleft()
+        
+        if (x, y) in visited:
+            continue
+        
+        visited.add((x, y))
+        path = path + [(x, y)]
+        
+        # Check if target reached
+        if x == target or y == target:
+            return path
+        
+        # Possible moves
+        next_states = [
+            (cap1, y),   # fill jug1
+            (x, cap2),   # fill jug2
+            (0, y),      # empty jug1
+            (x, 0),      # empty jug2
+            # pour jug1 -> jug2
+            (x - min(x, cap2 - y), y + min(x, cap2 - y)),
+            # pour jug2 -> jug1
+            (x + min(y, cap1 - x), y - min(y, cap1 - x))
+        ]
+        
+        for state in next_states:
+            if state not in visited:
+                queue.append((state, path))
+    
+    return None
+
+# Input
+cap1 = int(input("Enter capacity of Jug1: "))
+cap2 = int(input("Enter capacity of Jug2: "))
+target = int(input("Enter target amount: "))
+
+# Solve
+result = water_jug(cap1, cap2, target)
+
+# Output
+if result:
+    print("\nSteps:")
+    for step in result:
+        print(step)
+else:
+    print("No solution possible.")
+
+
+  ..............................
+
+7.TOWER OF HANOI
+
+def hanoi(n, source, auxiliary, destination):
+    if n == 1:
+        print(f"Move disk 1 from {source} → {destination}")
+        return
+    
+    # Move n-1 disks to auxiliary
+    hanoi(n-1, source, destination, auxiliary)
+    
+    # Move largest disk
+    print(f"Move disk {n} from {source} → {destination}")
+    
+    # Move n-1 disks to destination
+    hanoi(n-1, auxiliary, source, destination)
+
+# Input
+n = int(input("Enter number of disks: "))
+
+# Call function
+hanoi(n, "A", "B", "C")
+
+
+  
